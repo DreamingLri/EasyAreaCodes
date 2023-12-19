@@ -4,6 +4,7 @@ import com.project.eac.entity.Codes;
 import com.project.eac.service.CodesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,5 +18,9 @@ public class CodeController {
     @GetMapping("/getAllCodes")
     public List<Codes> getAllCodes(){
         return codesService.getAllCodes();
+    }
+    @PostMapping("/test")
+    public String test(){
+        return "hello";
     }
 }
