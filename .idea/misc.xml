@@ -6,6 +6,7 @@
       <list>
         <option value="$PROJECT_DIR$/EAC/pom.xml" />
         <option value="$PROJECT_DIR$/EAC-backend/pom.xml" />
+        <option value="$PROJECT_DIR$/EasyAreaCode/pom.xml" />
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
