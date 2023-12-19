@@ -23,4 +23,8 @@ public class CodeController {
     public String test(){
         return "hello";
     }
+    @GetMapping("/getTest")
+    public String getTest(){
+        return "don forget me";
+    }
 }
