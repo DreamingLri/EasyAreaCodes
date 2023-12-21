@@ -1,6 +1,9 @@
 package com.project.eac.controller;
 
+import com.alibaba.fastjson2.JSONObject;
+import com.project.eac.entity.CodeEntry;
 import com.project.eac.entity.Codes;
+import com.project.eac.service.ChangesService;
 import com.project.eac.service.CodesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,15 +19,8 @@ import java.util.List;
 public class CodeController {
     private final CodesService codesService;
     @GetMapping("/getAllCodes")
-    public List<Codes> getAllCodes(){
+    public List<CodeEntry> getAllCodes(){
         return codesService.getAllCodes();
     }
-    @PostMapping("/test")
-    public String test(){
-        return "hello";
-    }
-    @GetMapping("/getTest")
-    public String getTest(){
-        return "don forget me !!!!!";
-    }
+
 }
