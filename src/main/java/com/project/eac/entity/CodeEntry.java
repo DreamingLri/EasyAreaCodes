@@ -3,7 +3,6 @@ package com.project.eac.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 import java.util.List;
 
@@ -18,5 +17,5 @@ public class CodeEntry {
     private Integer end;
 
     private List<CodeEntry> children;
-    private List<Successors> successors;
+    private List<TimedCode> successors;
 }

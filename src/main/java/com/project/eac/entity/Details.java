@@ -13,7 +13,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @NoArgsConstructor
 @Accessors(chain = true)
 @TableName("details")
-public class Details  {
+public class Details {
     @TableId
     private Integer id;
 
