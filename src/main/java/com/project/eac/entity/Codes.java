@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,9 +15,10 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @TableName("codes")
 public class Codes  {
     @TableId
-    private Integer code;
-    private Integer start;
+    private Integer id;
 
+    private Integer code;
     private String name;
+    private Integer start;
     private Integer end;
 }
