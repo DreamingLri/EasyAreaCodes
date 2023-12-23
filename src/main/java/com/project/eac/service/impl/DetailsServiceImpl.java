@@ -17,12 +17,12 @@ import java.util.List;
 public class DetailsServiceImpl extends ServiceImpl<DetailsMapper, Details> implements DetailsService {
     private final ChangesMapper changesMapper;
     @Override
-    public List<Details> getDetailByCodeAndNewCodeAndTime(Integer code, Integer newCode, Integer time) {
+    public Details getDetailByCodeAndNewCodeAndTime(Integer code, Integer newCode, Integer time) {
         Integer detailsId = changesMapper.selectOne(new LambdaQueryWrapper<Change>()
                 .eq(Change::getCode, code)
                 .eq(Change::getNewCode, newCode)
                 .eq(Change::getTime, time)).getDetailsId();
-        return baseMapper.selectList(new LambdaQueryWrapper<Details>()
+        return baseMapper.selectOne(new LambdaQueryWrapper<Details>()
                 .eq(Details::getId, detailsId));
     }
 }

@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface DetailsService extends IService<Details> {
 
-    List<Details> getDetailByCodeAndNewCodeAndTime(Integer code, Integer newCode, Integer time);
+    Details getDetailByCodeAndNewCodeAndTime(Integer code, Integer newCode, Integer time);
 }

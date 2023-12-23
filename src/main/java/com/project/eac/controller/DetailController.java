@@ -17,7 +17,7 @@ public class DetailController {
     private final DetailsService detailsService;
 
     @GetMapping("/getDetailByCodeAndNewCodeAndTime")
-    private List<Details> getDetailByCodeAndNewCodeAndTime(Integer code, Integer newCode, Integer time){
+    private Details getDetailByCodeAndNewCodeAndTime(Integer code, Integer newCode, Integer time){
         return detailsService.getDetailByCodeAndNewCodeAndTime(code, newCode, time);
     }
 }
