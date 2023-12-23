@@ -7,8 +7,10 @@ import com.project.eac.entity.Change;
 import com.project.eac.entity.Code;
 import com.project.eac.entity.CodeEntry;
 import com.project.eac.entity.TimedCode;
+import com.project.eac.entity.vo.ChangeVO;
 import com.project.eac.mapper.ChangesMapper;
 import com.project.eac.mapper.CodesMapper;
+import com.project.eac.mapper.struct.BeanCopyUtils;
 import com.project.eac.service.CodesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,40 @@ public class CodesServiceImpl extends ServiceImpl<CodesMapper, Code> implements 
         List<Change> changes = changesMapper.selectList(new LambdaQueryWrapper<>()); //changes List
 
         return generateCodeEntries(codes, changes); // return value
+    }
+
+    @Override
+    public List<ChangeVO> getSuccessors(Integer code, Integer start) {
+        return changesMapper.selectList(new LambdaQueryWrapper<Change>()
+            .eq(Change::getCode, code)
+            .eq(Change::getStart, start))
+            .stream()
+            .map(BeanCopyUtils.INSTANCE::toChangeVO)
+            .peek(changeVO -> {
+                String name = baseMapper.selectOne(new LambdaQueryWrapper<Code>()
+                                .eq(Code::getCode, changeVO.getNewCode())
+                                .le(Code::getStart, changeVO.getTime())
+                                .and(i -> i.isNull(Code::getEnd).or().gt(Code::getEnd, changeVO.getTime())))
+                        .getName();
+                changeVO.setName(name);
+            }).toList();
+
+    }
+
+    @Override
+    public List<ChangeVO> getPredecessors(Integer code, Integer start, Integer end) {
+        return changesMapper.selectList(new LambdaQueryWrapper<Change>()
+                .eq(Change::getNewCode, code)
+                .ge(Change::getTime, start)
+                .lt(end != null, Change::getTime, end))
+                .stream()
+                .map(BeanCopyUtils.INSTANCE::toChangeVO)
+                .peek(changeVO -> {
+                    String name = baseMapper.selectOne(new LambdaQueryWrapper<Code>()
+                            .eq(Code::getCode, changeVO.getCode())
+                            .eq(Code::getStart, changeVO.getStart())).getName();
+                    changeVO.setName(name);
+                }).toList();
     }
 
     private List<CodeEntry> generateCodeEntries(List<Code> codes, List<Change> changes) {
