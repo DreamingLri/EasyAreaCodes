@@ -7,7 +7,9 @@ import static com.project.eac.constants.HttpStatus.*;
 @Getter
 public enum HttpMessage {
     SUCCESS(HTTP_STATUS_200, "success"),
-    SYSTEM_ERROR(HTTP_STATUS_500, "system error");
+    SYSTEM_ERROR(HTTP_STATUS_500, "system error"),
+
+    LOGIN_ERROR(HTTP_STATUS_422, "login error");
 
 
     final Integer code;
