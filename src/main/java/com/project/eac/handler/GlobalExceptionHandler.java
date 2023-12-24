@@ -15,7 +15,7 @@ import static com.project.eac.constants.HttpStatus.*;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
-    public Result exceptionHandler(Exception e){
+    public Result<Void> exceptionHandler(Exception e){
         if(e instanceof GlobalException exception){
             return Result.error(exception.getCode(), exception.getMessage());
         }
