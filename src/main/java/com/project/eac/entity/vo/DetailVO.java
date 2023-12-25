@@ -1,22 +1,14 @@
-package com.project.eac.entity;
-
+package com.project.eac.entity.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Accessors(chain = true)
-@TableName("changes")
-public class Change  {
-    @TableId
+public class DetailVO {
     private Integer id;
-
     private Integer code;
     private String name;
     private Integer start;
@@ -24,5 +16,5 @@ public class Change  {
     private String newName;
     private Integer newStart;
     private Integer time;
-    private Integer detailsId;
+    private String text;
 }

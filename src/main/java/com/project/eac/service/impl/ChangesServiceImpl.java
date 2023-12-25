@@ -17,7 +17,7 @@ public class ChangesServiceImpl extends ServiceImpl<ChangesMapper, Change> imple
     @Override
     public List<JSONObject> getChangesWithTime() {
         List<JSONObject> list = new ArrayList<>();
-        for(int i = 1980; i< 2023; i++){
+        for(int i = 1980; i < 2023; i++){
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("time", i);
             List<Change> changes = baseMapper.selectList(new LambdaQueryWrapper<Change>().eq(Change::getTime, i));
