@@ -40,26 +40,26 @@ public class DetailsServiceImpl extends ServiceImpl<DetailsMapper, Details> impl
                     .eq(Change::getNewCode, change.getNewCode())
                     .eq(Change::getTime, change.getTime())).getDetailsId();
             Details detail = baseMapper.selectById(detailsId);
+            DetailVO detailVO = BeanCopyUtils.INSTANCE.toDetailVO(change);
             if(!ObjectUtil.isEmpty(detail)){
-                DetailVO detailVO = BeanCopyUtils.INSTANCE.toDetailVO(change);
                 detailVO.setId(detail.getId());
                 detailVO.setText(detail.getText());
-                list.add(detailVO);
             }
+            list.add(detailVO);
         }
         return list;
     }
 
     @Override
     public DetailVO getDetailByChange(Change change) {
-        DetailVO detailVO = null;
+        DetailVO detailVO = new DetailVO();
         Integer detailsId = changesMapper.selectOne(new LambdaQueryWrapper<Change>()
                 .eq(Change::getCode, change.getCode())
                 .eq(Change::getNewCode, change.getNewCode())
                 .eq(Change::getTime, change.getTime())).getDetailsId();
+        detailVO = BeanCopyUtils.INSTANCE.toDetailVO(change);
         Details details = baseMapper.selectById(detailsId);
         if(!ObjectUtil.isEmpty(details)){
-            detailVO = BeanCopyUtils.INSTANCE.toDetailVO(change);
             detailVO.setId(details.getId());
             detailVO.setText(details.getText());
         }
@@ -105,7 +105,7 @@ public class DetailsServiceImpl extends ServiceImpl<DetailsMapper, Details> impl
             change.setDetailsId(detailsId);
             changesMapper.updateById(change);
         }
-        return false;
+        return true;
     }
 
 //    @Override
