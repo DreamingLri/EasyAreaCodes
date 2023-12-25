@@ -23,12 +23,14 @@ public class DetailsServiceImpl extends ServiceImpl<DetailsMapper, Details> impl
     private final ChangesMapper changesMapper;
     @Override
     public Details getDetailByCodeAndNewCodeAndTime(Integer code, Integer newCode, Integer time) {
+        Details details = new Details();
         Integer detailsId = changesMapper.selectOne(new LambdaQueryWrapper<Change>()
                 .eq(Change::getCode, code)
                 .eq(Change::getNewCode, newCode)
                 .eq(Change::getTime, time)).getDetailsId();
-        return baseMapper.selectOne(new LambdaQueryWrapper<Details>()
+        details = baseMapper.selectOne(new LambdaQueryWrapper<Details>()
                 .eq(Details::getId, detailsId));
+        return details;
     }
 
     @Override
