@@ -35,7 +35,11 @@ public class DetailsServiceImpl extends ServiceImpl<DetailsMapper, Details> impl
     public List<DetailVO> getDetailByChangesList(List<Change> changes) {
         List<DetailVO> list = new ArrayList<>();
         for (Change change : changes) {
-            Details detail = baseMapper.selectById(change.getDetailsId());
+            Integer detailsId = changesMapper.selectOne(new LambdaQueryWrapper<Change>()
+                    .eq(Change::getCode, change.getCode())
+                    .eq(Change::getNewCode, change.getNewCode())
+                    .eq(Change::getTime, change.getTime())).getDetailsId();
+            Details detail = baseMapper.selectById(detailsId);
             if(!ObjectUtil.isEmpty(detail)){
                 DetailVO detailVO = BeanCopyUtils.INSTANCE.toDetailVO(change);
                 detailVO.setId(detail.getId());
@@ -49,7 +53,11 @@ public class DetailsServiceImpl extends ServiceImpl<DetailsMapper, Details> impl
     @Override
     public DetailVO getDetailByChange(Change change) {
         DetailVO detailVO = null;
-        Details details = baseMapper.selectById(change.getDetailsId());
+        Integer detailsId = changesMapper.selectOne(new LambdaQueryWrapper<Change>()
+                .eq(Change::getCode, change.getCode())
+                .eq(Change::getNewCode, change.getNewCode())
+                .eq(Change::getTime, change.getTime())).getDetailsId();
+        Details details = baseMapper.selectById(detailsId);
         if(!ObjectUtil.isEmpty(details)){
             detailVO = BeanCopyUtils.INSTANCE.toDetailVO(change);
             detailVO.setId(details.getId());
@@ -100,38 +108,38 @@ public class DetailsServiceImpl extends ServiceImpl<DetailsMapper, Details> impl
         return false;
     }
 
-    @Override
-    public DetailVO getDetailUpdate(Change change) {
-        Integer detailsId = changesMapper.selectOne(new LambdaQueryWrapper<Change>()
-                .eq(Change::getCode, change.getCode())
-                .eq(Change::getNewCode, change.getNewCode())
-                .eq(Change::getTime, change.getTime())).getDetailsId();
-        Details details = baseMapper.selectById(detailsId);
-        DetailVO detailVO = null;
-        if(!ObjectUtil.isEmpty(details)){
-            detailVO = BeanCopyUtils.INSTANCE.toDetailVO(change);
-            detailVO.setId(details.getId());
-            detailVO.setText(details.getText());
-        }
-        return detailVO;
-    }
-
-    @Override
-    public List<DetailVO> getDetailUpdates(List<Change> changes) {
-        List<DetailVO> list = new ArrayList<>();
-        for (Change change : changes) {
-            Integer detailsId = changesMapper.selectOne(new LambdaQueryWrapper<Change>()
-                    .eq(Change::getCode, change.getCode())
-                    .eq(Change::getNewCode, change.getNewCode())
-                    .eq(Change::getTime, change.getTime())).getDetailsId();
-            Details detail = baseMapper.selectById(detailsId);
-            if(!ObjectUtil.isEmpty(detail)){
-                DetailVO detailVO = BeanCopyUtils.INSTANCE.toDetailVO(change);
-                detailVO.setId(detail.getId());
-                detailVO.setText(detail.getText());
-                list.add(detailVO);
-            }
-        }
-        return list;
-    }
+//    @Override
+//    public DetailVO getDetailUpdate(Change change) {
+//        Integer detailsId = changesMapper.selectOne(new LambdaQueryWrapper<Change>()
+//                .eq(Change::getCode, change.getCode())
+//                .eq(Change::getNewCode, change.getNewCode())
+//                .eq(Change::getTime, change.getTime())).getDetailsId();
+//        Details details = baseMapper.selectById(detailsId);
+//        DetailVO detailVO = null;
+//        if(!ObjectUtil.isEmpty(details)){
+//            detailVO = BeanCopyUtils.INSTANCE.toDetailVO(change);
+//            detailVO.setId(details.getId());
+//            detailVO.setText(details.getText());
+//        }
+//        return detailVO;
+//    }
+//
+//    @Override
+//    public List<DetailVO> getDetailUpdates(List<Change> changes) {
+//        List<DetailVO> list = new ArrayList<>();
+//        for (Change change : changes) {
+//            Integer detailsId = changesMapper.selectOne(new LambdaQueryWrapper<Change>()
+//                    .eq(Change::getCode, change.getCode())
+//                    .eq(Change::getNewCode, change.getNewCode())
+//                    .eq(Change::getTime, change.getTime())).getDetailsId();
+//            Details detail = baseMapper.selectById(detailsId);
+//            if(!ObjectUtil.isEmpty(detail)){
+//                DetailVO detailVO = BeanCopyUtils.INSTANCE.toDetailVO(change);
+//                detailVO.setId(detail.getId());
+//                detailVO.setText(detail.getText());
+//                list.add(detailVO);
+//            }
+//        }
+//        return list;
+//    }
 }

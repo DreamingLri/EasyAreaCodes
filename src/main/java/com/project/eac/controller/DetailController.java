@@ -41,13 +41,13 @@ public class DetailController {
         return detailsService.updateDetails(detailVOList);
     }
 
-    @PostMapping("/getDetailUpdate")
-    private DetailVO getDetailUpdate(@RequestBody Change change){
-        return detailsService.getDetailUpdate(change);
-    }
-
-    @PostMapping("/getDetailUpdates")
-    private List<DetailVO> getDetailUpdates(@RequestBody List<Change> changes){
-        return detailsService.getDetailUpdates(changes);
-    }
+//    @PostMapping("/getDetailUpdate")
+//    private DetailVO getDetailUpdate(@RequestBody Change change){
+//        return detailsService.getDetailUpdate(change);
+//    }
+//
+//    @PostMapping("/getDetailUpdates")
+//    private List<DetailVO> getDetailUpdates(@RequestBody List<Change> changes){
+//        return detailsService.getDetailUpdates(changes);
+//    }
 }
