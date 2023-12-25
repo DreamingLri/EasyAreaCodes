@@ -18,4 +18,8 @@ public interface DetailsService extends IService<Details> {
     boolean updateDetail(DetailVO detailVO);
 
     boolean updateDetails(List<DetailVO> detailVOList);
+
+    DetailVO getDetailUpdate(Change change);
+
+    List<DetailVO> getDetailUpdates(List<Change> changes);
 }
