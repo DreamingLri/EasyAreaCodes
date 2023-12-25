@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.project.eac.entity.Change;
 import com.project.eac.entity.Details;
 import com.project.eac.entity.vo.DetailVO;
+import com.project.eac.handler.exceptions.UpdateDetailException;
 import com.project.eac.mapper.ChangesMapper;
 import com.project.eac.mapper.DetailsMapper;
 import com.project.eac.mapper.struct.BeanCopyUtils;
@@ -55,5 +56,47 @@ public class DetailsServiceImpl extends ServiceImpl<DetailsMapper, Details> impl
             detailVO.setText(details.getText());
         }
         return detailVO;
+    }
+
+    @Override
+    public boolean updateDetail(DetailVO detailVO) {
+        if(ObjectUtil.isEmpty(detailVO)){
+            throw new UpdateDetailException("更新数据为空");
+        }
+        Details details = new Details();
+        details.setText(detailVO.getText());
+        baseMapper.insert(details);
+        int detailsId = details.getId();
+        Change change = BeanCopyUtils.INSTANCE.toChange(detailVO);
+        Integer id = changesMapper.selectOne(new LambdaQueryWrapper<Change>()
+                .eq(Change::getCode, detailVO.getCode())
+                .eq(Change::getNewCode, detailVO.getNewCode())
+                .eq(Change::getTime, detailVO.getTime())).getId();
+        change.setId(id);
+        change.setDetailsId(detailsId);
+        changesMapper.updateById(change);
+        return true;
+    }
+
+    @Override
+    public boolean updateDetails(List<DetailVO> detailVOList) {
+        if(detailVOList.isEmpty()){
+            throw new UpdateDetailException("更新数据为空");
+        }
+        Details details = new Details();
+        details.setText(detailVOList.getFirst().getText());
+        baseMapper.insert(details);
+        int detailsId = details.getId();
+        for (DetailVO detailVO : detailVOList) {
+            Change change = BeanCopyUtils.INSTANCE.toChange(detailVO);
+            Integer id = changesMapper.selectOne(new LambdaQueryWrapper<Change>()
+                    .eq(Change::getCode, detailVO.getCode())
+                    .eq(Change::getNewCode, detailVO.getNewCode())
+                    .eq(Change::getTime, detailVO.getTime())).getId();
+            change.setId(id);
+            change.setDetailsId(detailsId);
+            changesMapper.updateById(change);
+        }
+        return false;
     }
 }

@@ -30,4 +30,14 @@ public class DetailController {
     private DetailVO getDetailByChange(@RequestBody Change change){
         return detailsService.getDetailByChange(change);
     }
+
+    @PostMapping("/updateDetail")
+    private boolean updateDetail(@RequestBody DetailVO detailVO){
+        return detailsService.updateDetail(detailVO);
+    }
+
+    @PostMapping("updateDetails")
+    private boolean updateDetails(@RequestBody List<DetailVO> detailVOList){
+        return detailsService.updateDetails(detailVOList);
+    }
 }
