@@ -43,7 +43,7 @@
 
 **Q：我发现了bug或区划码错误怎么办？**
 
-**A：您可以提交issue或者发送[邮件]((mailto:dreaminglri@outlook.com))**
+**A：您可以提交issue或者发送**[邮件]((mailto:dreaminglri@outlook.com))
 
 ------
 
@@ -57,6 +57,6 @@
 
 [1]: https://www.mca.gov.cn/n156/n186/index.html
 [2]: http://xzqh.mca.gov.cn/description?dcpid=1
-[3]: http://www.gov.cn/test/2006-02/27/content_212020.html
+[3]: http://www.gov.cn/test/2006-02/27/content_212020.htm
 [CC0]: https://creativecommons.org/publicdomain/zero/1.0/deed.zh
 
