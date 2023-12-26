@@ -31,6 +31,8 @@
 
 **A：本项目暂时还未有网页版（不要急），您可以clone[EasyAreaCodes](https://github.com/DreamingLri/EasyAreaCodes)和[EasyAreaCodes-web](https://github.com/DreamingLri/EasyAreaCodes-web)并部署到本地运行x**
 
+**我们提供了[本地数据库](https://github.com/DreamingLri/EasyAreaCodes/tree/master/src/main/resources/static/sql)用来进行数据的展示**
+
 **或者您可以使用[areacode](https://yescallop.cn/areacodes/)来查看区划码的变更，本项目为此项目的重构版**
 
 ---
