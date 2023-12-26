@@ -54,4 +54,15 @@ public class JwtUtils {
 
         return claims;
     }
+
+    public String getUserNameFromToken(String token){
+        String userName = null;
+        try{
+            Claims claims = getClaims(token);
+            userName = claims.getSubject();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return userName;
+    }
 }

@@ -23,6 +23,7 @@ public class LoginController {
         if(loginUser == null || !Objects.equals(loginUser.getPassword(), user.getPassword())){
             throw new UserLoginException("用户名或密码错误");
         }
+        String token = null;
         return loginUser;
     }
 }
