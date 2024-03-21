@@ -1,8 +1,10 @@
 package com.project.eac.controller;
 
 import com.project.eac.entity.CodeEntry;
+import com.project.eac.entity.Details;
 import com.project.eac.entity.vo.ChangeVO;
 import com.project.eac.service.CodesService;
+import com.project.eac.service.DetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CodeController {
     private final CodesService codesService;
+    private final DetailsService detailsService;
+
+    @GetMapping("/getDetailByCodeAndNewCodeAndTime")
+    private Details getDetailByCodeAndNewCodeAndTime(Integer code, Integer newCode, Integer time){
+        return detailsService.getDetailByCodeAndNewCodeAndTime(code, newCode, time);
+    }
+
     @GetMapping("/getAllCodes")
     public List<CodeEntry> getAllCodes(){
         return codesService.getAllCodes();

@@ -1,8 +1,12 @@
 package com.project.eac.config;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -16,19 +20,22 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     return http
             .authorizeHttpRequests(conf -> {
                 conf.requestMatchers("hello").permitAll();
-                conf.requestMatchers("")
+                conf.requestMatchers("code/**").permitAll();
                 conf.anyRequest().authenticated();
             })
             .formLogin(conf->{
-                conf.loginProcessingUrl("admin/login");
+                conf.loginPage("http://localhost:8081/admin/login");
+                conf.loginProcessingUrl("http://localhost:8081/admin/login");
+                conf.failureHandler(this::onAuthenticationFailure);
+                conf.successHandler(this::onAuthenticationSuccess);
                 conf.permitAll();
             })
 
             .cors(conf->{
                 CorsConfiguration cors = new CorsConfiguration();
-                cors.addAllowedOrigin("http:/localhost:8080");
+                cors.addAllowedOrigin("http://localhost:8081");
                 cors.setAllowCredentials(true);
-                cors.addAllowedOrigin("*");
+                cors.addExposedHeader("*");
                 cors.addAllowedHeader("*");
                 cors.addAllowedMethod("*");
                 UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -36,5 +43,15 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
                     conf.configurationSource(source);
             })
             .build();
+    }
+
+    private void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
+                                         HttpServletResponse httpServletResponse,
+                                         Authentication authentication) {
+    }
+
+    private void onAuthenticationFailure(HttpServletRequest httpServletRequest,
+                                         HttpServletResponse httpServletResponse,
+                                         AuthenticationException e) {
     }
 }
